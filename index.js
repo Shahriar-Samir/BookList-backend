@@ -25,7 +25,7 @@ const app = express()
 const  port = process.env.PORT || 5000;
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use(cors())
+app.use(cors({origin: '*'}))
 // config
 
 app.use(function(req, res, next) {
@@ -38,11 +38,11 @@ app.use(function(req, res, next) {
 
 
 
-app.get('/',(req,res)=>{
+app.get('/',cor(), (req,res)=>{
       res.send('hello world !!! 4')
 })
 
-app.post('/books', async (req,res)=>{
+app.post('/books',cors(), async (req,res)=>{
       const Newbook = new BookModel(req.body)
       await Newbook.save().then((data)=>{
         res.send("<p>Data saved successfully !</p> <a href='http://localhost:3000/'>Go back</a>")
@@ -52,7 +52,7 @@ app.post('/books', async (req,res)=>{
       })
 })
 
-app.get('/books', async(req,res)=>{
+app.get('/books', cors(), async(req,res)=>{
     await BookModel.find({})
     .then((data)=>{
         const newData = data.map(item=> `
@@ -71,7 +71,7 @@ app.get('/books', async(req,res)=>{
 })
 
 
-app.get('/books/:id', async(req,res)=>{
+app.get('/books/:id', cors(), async(req,res)=>{
     await BookModel.find({_id: req.params.id})
     .then((data)=>{
         const newData = data.map(item=> `
@@ -93,7 +93,7 @@ app.get('/books/:id', async(req,res)=>{
 
 
 
-app.put('/books/:id', async(req,res)=>{
+app.put('/books/:id', cors(),async(req,res)=>{
     await BookModel.findOneAndUpdate({_id: req.params.id},req.body)
     .then((data)=>{
         const newData = data.map(item=> `
@@ -112,7 +112,7 @@ app.put('/books/:id', async(req,res)=>{
     })
 })
 
-app.delete('/books/:id', async(req,res)=>{
+app.delete('/books/:id',cors() ,async(req,res)=>{
     await BookModel.findOneAndDelete({_id: req.params.id}, req.body)
     .then((data)=>{
         const newData = data.map(item=> `
