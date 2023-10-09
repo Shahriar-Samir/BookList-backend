@@ -38,7 +38,7 @@ app.use(function(req, res, next) {
 
 
 
-app.get('/',cor(), (req,res)=>{
+app.get('/',cors(), (req,res)=>{
       res.send('hello world !!! 4')
 })
 
