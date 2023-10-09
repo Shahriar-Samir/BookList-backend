@@ -25,16 +25,11 @@ const app = express()
 const  port = process.env.PORT || 5000;
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use(cors(
-    {
-        origin:["https://booklist-frontend-iota.vercel.app/"],
-        credentials: true,
-    }
-))
+app.use(cors())
 // config
 
 app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'https://booklist-frontend-iota.vercel.app/');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -44,7 +39,7 @@ app.use(function(req, res, next) {
 
 
 app.get('/',(req,res)=>{
-      res.send('hello world !!! 3')
+      res.send('hello world !!! 4')
 })
 
 app.post('/books', async (req,res)=>{
