@@ -26,7 +26,7 @@ const  port = process.env.PORT || 5000;
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 app.use(cors({
-       origin:["https://booklist-frontend-iota.vercel.app" , "https://booklist-frontend-iota.vercel.app/" , "https://booklist-frontend-iota.vercel.app/books/details/"]
+       origin:["https://booklist-frontend-iota.vercel.app" , "https://booklist-frontend-iota.vercel.app/" , "https://booklist-frontend-iota.vercel.app/books/details/:id"]
 }))
 // config
 
