@@ -25,7 +25,7 @@ const app = express()
 const  port = process.env.PORT || 5000;
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use(cors({origin: '*', credentials: false}))
+app.use(cors({origin: 'https://book-list-o1co.onrender.com', credentials: false))
 // config
 
 app.use(function(req, res, next) {
