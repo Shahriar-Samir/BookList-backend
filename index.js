@@ -25,35 +25,34 @@ const app = express()
 const  port = process.env.PORT || 5000;
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
-app.use(cors({origin: 'https://book-list-o1co.onrender.com', credentials: false}))
+app.use(cors({origin: 'https://book-list-o1co.onrender.com', methods:'GET, POST, PUT, DELETE', credentials: true}))
 // config
 
 app.use(function(req, res, next) {
     
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    res.setHeader('Access-Control-Allow-Credentials', false);
-    res.setHeader("Access-Control-Allow-Private-Network", "true")
+    res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
 
 
 
-app.get('/',cors(), (req,res)=>{
+app.get('/', (req,res)=>{
       res.send('hello world !!! 4')
 })
 
-app.post('/books',cors(), async (req,res)=>{
+app.post('/books', async (req,res)=>{
       const Newbook = new BookModel(req.body)
       await Newbook.save().then((data)=>{
-        res.send("<p>Data saved successfully !</p> <a href='http://localhost:3000/'>Go back</a>")
+        res.send("<p>Data saved successfully !</p> <a href='https://book-list-o1co.onrender.com'>Go back</a>")
       })
       .catch((err)=>{
         res.send("You havent inputed data properly")
       })
 })
 
-app.get('/books', cors(), async(req,res)=>{
+app.get('/books', async(req,res)=>{
     await BookModel.find({})
     .then((data)=>{
         const newData = data.map(item=> `
@@ -72,7 +71,7 @@ app.get('/books', cors(), async(req,res)=>{
 })
 
 
-app.get('/books/:id', cors(), async(req,res)=>{
+app.get('/books/:id', async(req,res)=>{
     await BookModel.find({_id: req.params.id})
     .then((data)=>{
         const newData = data.map(item=> `
@@ -94,7 +93,7 @@ app.get('/books/:id', cors(), async(req,res)=>{
 
 
 
-app.put('/books/:id', cors(),async(req,res)=>{
+app.put('/books/:id',async(req,res)=>{
     await BookModel.findOneAndUpdate({_id: req.params.id},req.body)
     .then((data)=>{
         const newData = data.map(item=> `
@@ -113,7 +112,7 @@ app.put('/books/:id', cors(),async(req,res)=>{
     })
 })
 
-app.delete('/books/:id',cors() ,async(req,res)=>{
+app.delete('/books/:id',async(req,res)=>{
     await BookModel.findOneAndDelete({_id: req.params.id}, req.body)
     .then((data)=>{
         const newData = data.map(item=> `
